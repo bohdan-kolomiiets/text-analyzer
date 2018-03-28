@@ -1,0 +1,17 @@
+TextAnalyzer.FrontEnd/node_modules/*
+TextAnalyzer.FrontEnd/dist/*
+
+TextAnalyzer.BackEnd/Algorithms/bin/*
+TextAnalyzer.BackEnd/Algorithms/obj/*
+
+TextAnalyzer.BackEnd/Algorithms.Tests/bin/*
+TextAnalyzer.BackEnd/Algorithms.Tests/obj/*
+
+TextAnalyzer.BackEnd/TextAnalyzer.API/bin/*
+TextAnalyzer.BackEnd/TextAnalyzer.API/obj/*
+
+TextAnalyzer.BackEnd/TextAnalyzer.API.Tests/bin/*
+TextAnalyzer.BackEnd/TextAnalyzer.API.Tests/obj/*
+
+TextAnalyzer.BackEnd/TestResults/*
+TextAnalyzer.BackEnd/packages/*
