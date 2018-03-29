@@ -37,7 +37,7 @@ namespace TextAnalyzer.DAL.EF
         }
 }
 
-    public class AppDbInitializer : DropCreateDatabaseIfModelChanges<AppDbContext>
+    public class AppDbInitializer : DropCreateDatabaseAlways<AppDbContext>
     {
         protected override void Seed(AppDbContext db)
         {
@@ -68,6 +68,8 @@ namespace TextAnalyzer.DAL.EF
                     }
                 }
             };
+
+            base.Seed(db);
         }
     }
 

@@ -1,8 +1,14 @@
+import { PublicModule } from './public/public.module';
+import { ApplicationsModule } from './applications/applications.module';
+import { RulesModule } from './rules/rules.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
+import { ROUTING } from './app.routing';
 
 import { AppComponent } from './app.component';
+import { SharedModule } from './shared/shared.module';
+import { TextsModule } from './texts/texts.module';
 
 
 @NgModule({
@@ -10,9 +16,19 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    SharedModule,
+    ROUTING,
+
+    PublicModule,
+    TextsModule,
+    RulesModule,
+    ApplicationsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    NO_ERRORS_SCHEMA,
+    CUSTOM_ELEMENTS_SCHEMA
+  ]
 })
 export class AppModule { }
