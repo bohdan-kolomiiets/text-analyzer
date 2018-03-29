@@ -12,16 +12,7 @@ namespace Algorithms.Models.Rule
     {
         public IEnumerable<string> RegularExpressions { get; }
         public RulesConnectionType ConnectionType { get; set; }
-        private int? _minMatchesNumber;
-        private int? _maxMatchesNumber;
 
-        public int? MinMatchesNumber {
-            get { return _minMatchesNumber; }
-            private set { _minMatchesNumber = value.HasValue ? value.Value >= 0 ? value : 0 : null; }
-        }
-        public int? MAxMatchesNumber { get { return _maxMatchesNumber; }
-            private set { _maxMatchesNumber = value.HasValue ? value.Value >= 0 ? value : int.MaxValue : null; }
-        }
 
         public MultipleRegExpRules(IEnumerable<string> regularExpressions, RuleType ruleType, 
             RulesConnectionType connectionType, string title = "")
@@ -33,27 +24,10 @@ namespace Algorithms.Models.Rule
 
         public MultipleRegExpRules(IEnumerable<string> regularExpressions, RuleType ruleType, 
             RulesConnectionType connectionType, int? minMatchesNumber = null, int? maxMatchesNumber = null, string title = "")
-            :base(ruleType, title)
+            :base(ruleType, title, minMatchesNumber, maxMatchesNumber)
         {
             RegularExpressions = regularExpressions;
             ConnectionType = connectionType;
-
-            if (ruleType == RuleType.RegExpMatches)
-            {
-                if(minMatchesNumber.HasValue && maxMatchesNumber.HasValue)
-                {
-                    if(minMatchesNumber <= maxMatchesNumber)
-                    {
-                        MinMatchesNumber = minMatchesNumber;
-                        MAxMatchesNumber = maxMatchesNumber;
-                    }
-                    else
-                    {
-                        MinMatchesNumber = maxMatchesNumber;
-                        MAxMatchesNumber = minMatchesNumber;
-                    }
-                }
-            }
         }
     }
 }

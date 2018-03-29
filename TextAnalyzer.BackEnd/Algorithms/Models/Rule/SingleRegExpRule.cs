@@ -11,9 +11,6 @@ namespace Algorithms.Models.Rule
     public class SingleRegExpRule : RegExpRule
     {
         public string RegularExpression { get; }
-        
-        public int? MinMatchesNumber { get; }
-        public int? MAxMatchesNumber { get; }
 
         public SingleRegExpRule(string regularExpression, RuleType ruleType, string title = "")
             :base(ruleType, title)
@@ -23,15 +20,9 @@ namespace Algorithms.Models.Rule
 
         public SingleRegExpRule(string regularExpression, RuleType ruleType, 
             int? minMatchesNumber = null, int? maxMatchesNumber = null, string title = "")
-            :base(ruleType, title)
+            :base(ruleType, title, minMatchesNumber, maxMatchesNumber)
         {
             RegularExpression = regularExpression;
-
-            if(ruleType == RuleType.RegExpMatches)
-            {
-                MinMatchesNumber = minMatchesNumber;
-                MAxMatchesNumber = maxMatchesNumber;
-            }
         }
     }
 }

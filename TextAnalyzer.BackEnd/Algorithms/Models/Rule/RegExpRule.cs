@@ -15,10 +15,42 @@ namespace Algorithms.Models.Rule
 
         public RuleType RuleType { get; }
 
-        public RegExpRule(RuleType ruleType, string title = "")
+        private int? _minMatchesNumber;
+        private int? _maxMatchesNumber;
+
+        public int? MinMatchesNumber
+        {
+            get { return _minMatchesNumber; }
+            private set { _minMatchesNumber = value.HasValue ? value.Value >= 0 ? value : 0 : null; }
+        }
+        public int? MAxMatchesNumber
+        {
+            get { return _maxMatchesNumber; }
+            private set { _maxMatchesNumber = value.HasValue ? value.Value >= 0 ? value : int.MaxValue : null; }
+        }
+
+        public RegExpRule(RuleType ruleType, string title = "",
+            int? minMatchesNumber = null, int? maxMatchesNumber = null)
         {
             RuleType = ruleType;
             Title = title;
+
+            if (ruleType == RuleType.RegExpMatches)
+            {
+                if (minMatchesNumber.HasValue && maxMatchesNumber.HasValue)
+                {
+                    if (minMatchesNumber <= maxMatchesNumber)
+                    {
+                        MinMatchesNumber = minMatchesNumber;
+                        MAxMatchesNumber = maxMatchesNumber;
+                    }
+                    else
+                    {
+                        MinMatchesNumber = maxMatchesNumber;
+                        MAxMatchesNumber = minMatchesNumber;
+                    }
+                }
+            }
         }
     }
 }

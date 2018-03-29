@@ -40,7 +40,6 @@ namespace Algorithms
                 var initData = new ParserResult(data, null);
                 var result = initData.SplitByRegExp(splitSentences).FilterByRegExp(filterQuestions).FilterByRegExp(filterSentencesWithDate);
 
-
             }
             catch (Exception e)
             {
