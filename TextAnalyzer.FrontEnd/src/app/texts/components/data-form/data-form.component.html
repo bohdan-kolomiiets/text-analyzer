@@ -1,3 +1,43 @@
-<p>
-  data-form works!
-</p>
+<div *ngIf="!form">
+  Form is loading...</div>
+<form *ngIf="form" [formGroup]="form" (ngSubmit)="submit()">
+  <h3 *ngIf="!data.id">Create text data</h3>
+  <h3 *ngIf="data.id">Edit text data</h3>
+  <!-- {{form.value | json}} -->
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" class="form-control" formControlName="title">
+  </div>
+  <!-- <div class="form-group">
+        <label for="exampleFormControlSelect1">Example select</label>
+        <select class="form-control" id="exampleFormControlSelect1">
+          <option>1</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect2">Example multiple select</label>
+        <select multiple class="form-control" id="exampleFormControlSelect2">
+          <option>1</option>
+        </select>
+      </div> -->
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea class="form-control" formControlName="description" rows="4"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="dataValue">Text data</label>
+    <textarea class="form-control" formControlName="dataValue" rows="15"></textarea>
+  </div>
+
+  <div class="submit-area">
+      <button *ngIf="!submissionMessage" [disabled]="form.invalid || isSubmitting"
+      type="submit" class="btn btn-primary">
+      <ng-container *ngIf="!data.id && !isSubmitting">Create</ng-container>
+      <ng-container *ngIf="data.id && !isSubmitting">Save changes</ng-container>
+      <ng-container *ngIf="isSubmitting">Submitting...</ng-container>
+    </button>
+    <div *ngIf="submissionMessage" class="alert alert-success" [class.alert-success]="isSuccessful" [class.alert-danger]="!isSuccessful" role="alert">
+        {{submissionMessage}}
+    </div>
+  </div>
+</form>

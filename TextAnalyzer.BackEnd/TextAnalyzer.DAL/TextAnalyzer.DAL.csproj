@@ -61,6 +61,10 @@
     <Compile Include="Migrations\201803290635570_Init.Designer.cs">
       <DependentUpon>201803290635570_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803291341479_Move_InnerConnectionType.cs" />
+    <Compile Include="Migrations\201803291341479_Move_InnerConnectionType.Designer.cs">
+      <DependentUpon>201803291341479_Move_InnerConnectionType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Repository.cs" />
@@ -79,6 +83,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201803290635570_Init.resx">
       <DependentUpon>201803290635570_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803291341479_Move_InnerConnectionType.resx">
+      <DependentUpon>201803291341479_Move_InnerConnectionType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

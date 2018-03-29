@@ -28,14 +28,14 @@ namespace TextAnalyzer.API.Controllers
 
         [HttpGet]
         public async Task<IHttpActionResult> GetDataRecords()
-        {
+        { 
             var dataRecords = await _uow.DataRecords.GetAll().ToListAsync();
             var dataRecordsDTO = Mapper.Map<List<Data>, List<DataDTO>>(dataRecords);
             return Ok(dataRecords);
         }
 
-        //[ResponseType(typeof(Data))]
         [HttpGet]
+        [Route("{id}")]
         public IHttpActionResult GetData(int id)
         {
             var data = _uow.DataRecords.Get(id);
@@ -45,84 +45,51 @@ namespace TextAnalyzer.API.Controllers
             return Ok(dataDTO);
         }
 
-        //[ResponseType(typeof(void))]
-        //[HttpPut]
-        //public async Task<IHttpActionResult> PutData(int id, Data data)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        [HttpPost]
+        public async Task<IHttpActionResult> PostData([FromBody]DataDTO dataDTO)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        //    if (id != data.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+            var data = Mapper.Map<DataDTO, Data>(dataDTO);
+            data.CreatedAt = DateTime.Now;
+            _uow.DataRecords.Add(data);
+            _uow.SaveChanges();
 
-        //    db.Entry(data).State = EntityState.Modified;
+            return Ok(data.Id);
+        }
 
-        //    try
-        //    {
-        //        await db.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!DataExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+        [HttpPut]
+        public async Task<IHttpActionResult> PutData([FromBody]DataDTO dataDTO)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
+            if (dataDTO.Id <= 0)
+                return BadRequest();
 
-        //// POST: api/Data
-        //[ResponseType(typeof(Data))]
-        //public async Task<IHttpActionResult> PostData(Data data)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+            var data = _uow.DataRecords.Get(dataDTO.Id);
+            if (data == null)
+                return NotFound();
 
-        //    db.DataRecords.Add(data);
-        //    await db.SaveChangesAsync();
+            Mapper.Map<DataDTO, Data>(dataDTO, data);
+            data.CreatedAt = DateTime.Now;
+            _uow.DataRecords.Add(data);
+            _uow.SaveChanges();
 
-        //    return CreatedAtRoute("DefaultApi", new { id = data.Id }, data);
-        //}
+            return Ok(data.Id);
+        }
+        
+        [HttpDelete]
+        public IHttpActionResult DeleteData(int id)
+        {
+            var data = _uow.DataRecords.Get(id);
+            if (data == null)
+                return NotFound();
+            _uow.DataRecords.Remove(data);
+            _uow.SaveChanges();
+            return Ok(id);
+        }
 
-        //// DELETE: api/Data/5
-        //[ResponseType(typeof(Data))]
-        //public async Task<IHttpActionResult> DeleteData(int id)
-        //{
-        //    Data data = await db.DataRecords.FindAsync(id);
-        //    if (data == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    db.DataRecords.Remove(data);
-        //    await db.SaveChangesAsync();
-
-        //    return Ok(data);
-        //}
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
-
-        //private bool DataExists(int id)
-        //{
-        //    return db.DataRecords.Count(e => e.Id == id) > 0;
-        //}
     }
 }

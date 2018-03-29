@@ -1,3 +1,4 @@
+import { DataFormComponent } from './texts/components/data-form/data-form.component';
 import { HomeComponent } from './public/components/home/home.component';
 import { ApplicationListComponent } from './applications/components/application-list/application-list.component';
 import { RuleListComponent } from './rules/components/rule-list/rule-list.component';
@@ -8,9 +9,15 @@ import { ModuleWithProviders } from "@angular/core";
 export const ROUTES: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
+    
     { path: 'texts', component: DataListComponent },
+    { path: 'texts/new', component: DataFormComponent },
+    { path: 'texts/:id/edit', component: DataFormComponent },
+    
     { path: 'rules', component: RuleListComponent },
     { path: 'applications', component: ApplicationListComponent },
+
+
 ];
 
 export const ROUTING: ModuleWithProviders = RouterModule.forRoot(ROUTES);

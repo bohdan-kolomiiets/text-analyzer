@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Algorithms.Models.ConstantsAndEnums;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace TextAnalyzer.DAL.Entities
 {
@@ -14,6 +13,8 @@ namespace TextAnalyzer.DAL.Entities
 
         public int? MinMatchesNumber { get; set; }
         public int? MaxMatchesNumber { get; set; }
+
+        public RulesConnectionType InnerConnectionType { get; set; }
 
         public virtual ICollection<RegularExpression> RegularExpressions { get; set; } = new Collection<RegularExpression>();
         public virtual ICollection<AppliedRule> AppliedRules { get; set; } = new Collection<AppliedRule>();
