@@ -13,7 +13,7 @@ namespace TextAnalyzer.DAL.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201803290542364_Init"; }
+            get { return "201803290635570_Init"; }
         }
         
         string IMigrationMetadata.Source

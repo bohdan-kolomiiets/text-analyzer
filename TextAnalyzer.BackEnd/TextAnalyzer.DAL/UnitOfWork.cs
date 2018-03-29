@@ -17,12 +17,13 @@ namespace TextAnalyzer.DAL
         private IRepository<Rule> _Rules;
         private IRepository<RegularExpression> _RegularExpressions;
         private IRepository<Data> _DataRecords;
+        private IRepository<AppliedRuleBlock> _AppliedRuleBlocks;
         private IRepository<AppliedRule> _AppliedRules;
         private IRepository<AppliedRuleResult> _AppliedRuleResults;
 
-        public UnitOfWork(AppDbContext context)
+        public UnitOfWork(string connectionString)
         {
-            this.db = context;
+            db = new AppDbContext(connectionString);
         }
 
         public int SaveChanges()
@@ -62,6 +63,16 @@ namespace TextAnalyzer.DAL
                 if (_DataRecords == null)
                     _DataRecords = new Repository<Data>(db);
                 return _DataRecords;
+            }
+        }
+
+        public IRepository<AppliedRuleBlock> AppliedRuleBlocks
+        {
+            get
+            {
+                if (_AppliedRuleBlocks == null)
+                    _AppliedRuleBlocks = new Repository<AppliedRuleBlock>(db);
+                return _AppliedRuleBlocks;
             }
         }
 

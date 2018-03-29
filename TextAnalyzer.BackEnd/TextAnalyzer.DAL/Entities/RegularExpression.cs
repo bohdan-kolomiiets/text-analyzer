@@ -11,8 +11,6 @@ namespace TextAnalyzer.DAL.Entities
     {
         public virtual Rule Rule { get; set; }
         public int RuleId { get; set; }
-
-        public virtual ICollection<AppliedRuleResult> AppliedRuleResults { get; set; } = new Collection<AppliedRuleResult>();
         
         public string RegExp { get; set; }
 

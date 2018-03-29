@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace TextAnalyzer.DAL.Entities
 {
-    public class Data: EntryBaseModel
+    public class AppliedRuleBlock: EntryBaseModel
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public string DataValue { get; set; }
 
-        public virtual ICollection<AppliedRuleBlock> AppliedRuleBlocks { get; set; } = new Collection<AppliedRuleBlock>();
+        public int DataId { get; set; }
+        public virtual Data Data { get; set; }
+
+        public virtual ICollection<AppliedRule> AppliedRules { get; set; } = new Collection<AppliedRule>();
+
     }
 }

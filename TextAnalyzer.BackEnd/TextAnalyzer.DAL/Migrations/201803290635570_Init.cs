@@ -8,47 +8,49 @@ namespace TextAnalyzer.DAL.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.AppliedRuleResults",
+                "dbo.AppliedRuleBlocks",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        AppliedRuleId = c.Int(nullable: false),
-                        RegularExpressionId = c.Int(nullable: false),
-                        Result = c.String(),
+                        Title = c.String(),
+                        Description = c.String(),
+                        DataId = c.Int(nullable: false),
                         CreatedAt = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AppliedRules", t => t.AppliedRuleId, cascadeDelete: true)
-                .ForeignKey("dbo.RegularExpressions", t => t.RegularExpressionId)
-                .Index(t => t.AppliedRuleId)
-                .Index(t => t.RegularExpressionId);
+                .ForeignKey("dbo.Data", t => t.DataId, cascadeDelete: true)
+                .Index(t => t.DataId);
             
             CreateTable(
                 "dbo.AppliedRules",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        DataId = c.Int(nullable: false),
                         RuleId = c.Int(nullable: false),
+                        AppliedRuleBlockId = c.Int(nullable: false),
+                        Index = c.Int(nullable: false),
+                        InnerConnectionType = c.Int(nullable: false),
                         CreatedAt = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Data", t => t.DataId, cascadeDelete: true)
                 .ForeignKey("dbo.Rules", t => t.RuleId)
-                .Index(t => t.DataId)
-                .Index(t => t.RuleId);
+                .ForeignKey("dbo.AppliedRuleBlocks", t => t.AppliedRuleBlockId, cascadeDelete: true)
+                .Index(t => t.RuleId)
+                .Index(t => t.AppliedRuleBlockId);
             
             CreateTable(
-                "dbo.Data",
+                "dbo.AppliedRuleResults",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Title = c.String(),
-                        Description = c.String(),
-                        DataValue = c.String(),
+                        AppliedRuleId = c.Int(nullable: false),
+                        IndexInText = c.Int(),
+                        Value = c.String(),
                         CreatedAt = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AppliedRules", t => t.AppliedRuleId, cascadeDelete: true)
+                .Index(t => t.AppliedRuleId);
             
             CreateTable(
                 "dbo.Rules",
@@ -76,25 +78,38 @@ namespace TextAnalyzer.DAL.Migrations
                 .ForeignKey("dbo.Rules", t => t.RuleId, cascadeDelete: true)
                 .Index(t => t.RuleId);
             
+            CreateTable(
+                "dbo.Data",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Title = c.String(),
+                        Description = c.String(),
+                        DataValue = c.String(),
+                        CreatedAt = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.AppliedRuleBlocks", "DataId", "dbo.Data");
+            DropForeignKey("dbo.AppliedRules", "AppliedRuleBlockId", "dbo.AppliedRuleBlocks");
             DropForeignKey("dbo.RegularExpressions", "RuleId", "dbo.Rules");
-            DropForeignKey("dbo.AppliedRuleResults", "RegularExpressionId", "dbo.RegularExpressions");
             DropForeignKey("dbo.AppliedRules", "RuleId", "dbo.Rules");
-            DropForeignKey("dbo.AppliedRules", "DataId", "dbo.Data");
             DropForeignKey("dbo.AppliedRuleResults", "AppliedRuleId", "dbo.AppliedRules");
             DropIndex("dbo.RegularExpressions", new[] { "RuleId" });
-            DropIndex("dbo.AppliedRules", new[] { "RuleId" });
-            DropIndex("dbo.AppliedRules", new[] { "DataId" });
-            DropIndex("dbo.AppliedRuleResults", new[] { "RegularExpressionId" });
             DropIndex("dbo.AppliedRuleResults", new[] { "AppliedRuleId" });
+            DropIndex("dbo.AppliedRules", new[] { "AppliedRuleBlockId" });
+            DropIndex("dbo.AppliedRules", new[] { "RuleId" });
+            DropIndex("dbo.AppliedRuleBlocks", new[] { "DataId" });
+            DropTable("dbo.Data");
             DropTable("dbo.RegularExpressions");
             DropTable("dbo.Rules");
-            DropTable("dbo.Data");
-            DropTable("dbo.AppliedRules");
             DropTable("dbo.AppliedRuleResults");
+            DropTable("dbo.AppliedRules");
+            DropTable("dbo.AppliedRuleBlocks");
         }
     }
 }

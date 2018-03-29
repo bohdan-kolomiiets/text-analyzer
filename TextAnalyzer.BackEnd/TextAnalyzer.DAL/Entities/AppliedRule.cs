@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Algorithms.Models.ConstantsAndEnums;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,11 +10,14 @@ namespace TextAnalyzer.DAL.Entities
 {
     public class AppliedRule: EntryBaseModel
     {
-        public int DataId { get; set; }
-        public virtual Data Data { get; set; }
-
         public int RuleId { get; set; }
         public virtual Rule Rule { get; set; }
+
+        public int AppliedRuleBlockId { get; set; }
+        public virtual AppliedRuleBlock AppliedRuleBlock { get; set; }
+
+        public int Index { get; set; }
+        public RulesConnectionType InnerConnectionType { get; set; }
 
         public virtual ICollection<AppliedRuleResult> AppliedRuleResults { get; set; } = new Collection<AppliedRuleResult>();
         

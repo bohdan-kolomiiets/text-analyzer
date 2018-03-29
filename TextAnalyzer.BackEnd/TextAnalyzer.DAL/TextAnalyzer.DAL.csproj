@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="EF\AppDbContext.cs" />
     <Compile Include="Entities\AppliedRule.cs" />
+    <Compile Include="Entities\AppliedRuleBlock.cs" />
     <Compile Include="Entities\AppliedRuleResult.cs" />
     <Compile Include="Entities\Data.cs" />
     <Compile Include="Entities\EntryBaseModel.cs" />
@@ -56,9 +57,9 @@
     <Compile Include="Entities\Rule.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Migrations\201803290542364_Init.cs" />
-    <Compile Include="Migrations\201803290542364_Init.Designer.cs">
-      <DependentUpon>201803290542364_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201803290635570_Init.cs" />
+    <Compile Include="Migrations\201803290635570_Init.Designer.cs">
+      <DependentUpon>201803290635570_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,8 +71,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803290542364_Init.resx">
-      <DependentUpon>201803290542364_Init.cs</DependentUpon>
+    <ProjectReference Include="..\Algorithms\Algorithms.csproj">
+      <Project>{c0a699b4-fdcc-4f5f-9035-1daf3abd78a0}</Project>
+      <Name>Algorithms</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201803290635570_Init.resx">
+      <DependentUpon>201803290635570_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
