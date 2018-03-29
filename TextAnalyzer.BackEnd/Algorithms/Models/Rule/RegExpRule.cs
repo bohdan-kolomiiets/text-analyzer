@@ -35,7 +35,7 @@ namespace Algorithms.Models.Rule
             RuleType = ruleType;
             Title = title;
 
-            if (ruleType == RuleType.RegExpMatches)
+            if (ruleType == RuleType.RegExpFilter)
             {
                 if (minMatchesNumber.HasValue && maxMatchesNumber.HasValue)
                 {

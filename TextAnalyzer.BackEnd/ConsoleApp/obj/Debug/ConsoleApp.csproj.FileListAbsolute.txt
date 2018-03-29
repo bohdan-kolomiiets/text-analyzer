@@ -17,3 +17,4 @@ C:\Users\Dell\Documents\SourceTreeRepos\text-analyzer-app\TextAnalyzer.BackEnd\C
 C:\Users\Dell\Documents\SourceTreeRepos\text-analyzer-app\TextAnalyzer.BackEnd\ConsoleApp\obj\Debug\ConsoleApp.csproj.CoreCompileInputs.cache
 C:\Users\Dell\Documents\SourceTreeRepos\text-analyzer-app\TextAnalyzer.BackEnd\ConsoleApp\obj\Debug\ConsoleApp.exe
 C:\Users\Dell\Documents\SourceTreeRepos\text-analyzer-app\TextAnalyzer.BackEnd\ConsoleApp\obj\Debug\ConsoleApp.pdb
+C:\Users\Dell\Documents\SourceTreeRepos\text-analyzer-app\TextAnalyzer.BackEnd\ConsoleApp\bin\Debug\Data.txt

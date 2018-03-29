@@ -11,6 +11,6 @@ namespace Algorithms.Models.Interfaces
     {
         IParserResult<T> ParentParserReult { get; }
         string SourseText { get; }
-        IDictionary<int, string> Entries { get; }
+        IEnumerable<KeyValuePair<int, string>> Entries { get; }
     }
 }

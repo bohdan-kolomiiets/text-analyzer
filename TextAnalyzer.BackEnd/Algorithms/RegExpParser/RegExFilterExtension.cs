@@ -1,5 +1,5 @@
-﻿using Algorithms.Models.ConstantsAndEnums;
-using Algorithms.Models.Interfaces;
+﻿using Algorithms.Models;
+using Algorithms.Models.ConstantsAndEnums;
 using Algorithms.Models.Rule;
 using System;
 using System.Collections.Generic;
@@ -8,44 +8,14 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Algorithms.Models
+namespace Algorithms.RegExpParser
 {
-    public static class TextParser// : ITextParser
+    public static class RegExFilterExtension
     {
-        static TextParser()
-        {
-        }
-        
-
-        public static ParserResult SplitByRegExp(this ParserResult prevParserResult, SingleRegExpRule rule)
-        {
-            //check if regular expression type matches operation type
-            if (rule.RuleType != RuleType.RegExpSplit)
-                throw new NotSupportedException(
-                    String.Format("Method accepts regular expressions that are aimed to split text, but this has type {0}", 
-                    rule.RuleType.ToString()));
-
-            //split blank text
-            var entryArray = Regex.Split(prevParserResult.SourseText, rule.RegularExpression);
-            
-            //identify entries indexes
-            var entryIndexDictionary = new Dictionary<int, string>();
-            foreach(var entry in entryArray)
-            {
-                int entryIndex = prevParserResult.SourseText.IndexOf(entry);
-                entryIndexDictionary.Add(entryIndex, entry);
-            }
-
-            return new ParserResult(prevParserResult.SourseText, entryIndexDictionary, prevParserResult);
-        }
-
-        //public static ParserResult FindByRegExp(this )
-
-
         public static ParserResult FilterByRegExp(this ParserResult prevParserResult, RegExpRule rule)
         {
             //check if regular expression type matches operation type
-            if (rule.RuleType != RuleType.RegExpMatches)
+            if (rule.RuleType != RuleType.RegExpFilter)
                 throw new NotSupportedException(
                     String.Format("Method accepts regular expressions that are aimed to filter text, but this has type {0}",
                     rule.RuleType.ToString()));
@@ -55,7 +25,7 @@ namespace Algorithms.Models
                 throw new ArgumentNullException("Something went wrong. Entries of previous action are null.");
 
             //apply different filtration logic depending on type of rule
-            IDictionary<int, string>  entryIndexDictionary = new Dictionary<int, string>();
+            IEnumerable<KeyValuePair<int, string>> entryIndexDictionary = new List<KeyValuePair<int, string>>();
             if (rule is SingleRegExpRule)
                 entryIndexDictionary = FilerEntriesWithSingleRexExp(prevParserResult.Entries, (rule as SingleRegExpRule));
             else if (rule is MultipleRegExpRules)
@@ -66,9 +36,9 @@ namespace Algorithms.Models
             return new ParserResult(String.Join("\n", prevParserResult.Entries), entryIndexDictionary, prevParserResult);
         }
 
-        private static IDictionary<int, string> FilerEntriesWithSingleRexExp(IDictionary<int, string> entries, SingleRegExpRule singleRule)
+        private static IEnumerable<KeyValuePair<int, string>> FilerEntriesWithSingleRexExp(IEnumerable<KeyValuePair<int, string>> entries, SingleRegExpRule singleRule)
         {
-            var filteredRes = new Dictionary<int, string>();
+            var filteredRes = new List<KeyValuePair<int, string>>();
             foreach (var entry in entries)
             {
                 var matchRes = Regex.Matches(entry.Value, singleRule.RegularExpression);
@@ -79,14 +49,14 @@ namespace Algorithms.Models
                 else if (singleRule.MAxMatchesNumber.HasValue && singleRule.MAxMatchesNumber.Value < matchRes.Count)
                     continue;
                 else
-                    filteredRes.Add(entry.Key, entry.Value);
+                    filteredRes.Add(new KeyValuePair<int, string>(entry.Key, entry.Value));
             }
             return filteredRes;
         }
 
-        private static IDictionary<int, string> FilterEntriesWithMultipleRegExp(IDictionary<int, string> entries, MultipleRegExpRules multipleRules)
+        private static IEnumerable<KeyValuePair<int, string>> FilterEntriesWithMultipleRegExp(IEnumerable<KeyValuePair<int, string>> entries, MultipleRegExpRules multipleRules)
         {
-            var filteredRes = new Dictionary<int, string>();
+            var filteredRes = new List<KeyValuePair<int, string>>();
             foreach (var entry in entries)
             {
                 var resultVector = new List<bool>();
@@ -104,7 +74,7 @@ namespace Algorithms.Models
                 }
                 if ((multipleRules.ConnectionType == RulesConnectionType.Union && resultVector.Where(x => x).Count() >= 1)
                     || (multipleRules.ConnectionType == RulesConnectionType.Intersection && resultVector.Where(x => x).Count() == multipleRules.RegularExpressions.Count()))
-                    filteredRes.Add(entry.Key, entry.Value);
+                    filteredRes.Add(new KeyValuePair<int, string>(entry.Key, entry.Value));
             }
             return filteredRes;
         }

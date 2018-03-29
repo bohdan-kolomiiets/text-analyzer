@@ -77,8 +77,10 @@
     <Compile Include="Models\ConstantsAndEnums\RulesConnectionType.cs" />
     <Compile Include="Models\ConstantsAndEnums\RuleType.cs" />
     <Compile Include="Models\Rule\SingleRegExpRule.cs" />
-    <Compile Include="Models\TextParser.cs" />
-    <Compile Include="Test.cs" />
+    <Compile Include="RegExpParser\RegExFilterExtension.cs" />
+    <Compile Include="RegExpParser\RegExpFinderExtension.cs" />
+    <Compile Include="RegExpParser\RegExpSlitterExtension.cs" />
+    <Compile Include="RegExpParser\SimpleRexExpForTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

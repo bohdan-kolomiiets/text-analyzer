@@ -8,8 +8,8 @@ namespace Algorithms.Models.ConstantsAndEnums
 {
     public enum RuleType
     {
-        //RegExpMatch,
-        RegExpMatches,
+        RegExpFind,
+        RegExpFilter,
         RegExpSplit
     }
 }

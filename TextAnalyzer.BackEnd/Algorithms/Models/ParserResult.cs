@@ -13,9 +13,9 @@ namespace Algorithms.Models
     {
         public IParserResult<RuleType> ParentParserReult { get; }
         public string SourseText { get; }
-        public IDictionary<int, string> Entries { get; }
+        public IEnumerable<KeyValuePair<int, string>> Entries { get; }
 
-        public ParserResult(string sourceText, IDictionary<int, string> entries, IParserResult<RuleType> parentParserReult = null)
+        public ParserResult(string sourceText, IEnumerable<KeyValuePair<int, string>> entries, IParserResult<RuleType> parentParserReult = null)
         {
             SourseText = sourceText;
             Entries = entries;
