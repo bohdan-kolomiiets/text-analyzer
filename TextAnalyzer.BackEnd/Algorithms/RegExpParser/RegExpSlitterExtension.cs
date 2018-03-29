@@ -25,11 +25,11 @@ namespace Algorithms.RegExpParser
             var entryArray = Regex.Split(prevParserResult.SourseText, rule.RegularExpression);
 
             //identify entries indexes
-            var entryIndexDictionary = new Dictionary<int, string>();
+            var entryIndexDictionary = new List<KeyValuePair<int, string>>();
             foreach (var entry in entryArray)
             {
                 int entryIndex = prevParserResult.SourseText.IndexOf(entry);
-                entryIndexDictionary.Add(entryIndex, entry);
+                entryIndexDictionary.Add(new KeyValuePair<int, string>(entryIndex, entry));
             }
 
             return new ParserResult(prevParserResult.SourseText, entryIndexDictionary, prevParserResult);

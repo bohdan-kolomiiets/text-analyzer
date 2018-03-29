@@ -16,7 +16,7 @@ namespace Algorithms.RegExpParser
 
             if(print)
             {
-                Console.WriteLine("SPLITTED INTO SENTENCES");
+                Console.WriteLine("\nSplit sentences:::");
                 Console.WriteLine("Count: {0}", senteces.Length);
                 for (int i = 0; i < senteces.Length; i++)
                     Console.WriteLine("#{0}: {1}", i + 1, senteces[i]);
@@ -31,7 +31,7 @@ namespace Algorithms.RegExpParser
 
             if (print)
             {
-                Console.WriteLine("QUESTIONS");
+                Console.WriteLine("\nFilter questions:::");
                 foreach (var sentence in questions)
                     Console.WriteLine(sentence);
             }
@@ -45,7 +45,7 @@ namespace Algorithms.RegExpParser
             dateRegs.Add(@"\d{1,2}[/-]\d{1,2}[/-]\d{2,4}");
             dateRegs.Add(@"(?:\d{1,2} )?(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* (?:\d{1,2}, )?\d{4}");
 
-            Console.WriteLine("QUESTIONS WITH DATES");
+            Console.WriteLine("\nFilter dates:::");
             foreach (var sentence in sentences)
             {
                 foreach (var datesReg in dateRegs)
@@ -65,7 +65,7 @@ namespace Algorithms.RegExpParser
 
         public static float CalcFrequencyOfWordI(string data)
         {
-            Console.WriteLine("FIND WORD 'I'");
+            Console.WriteLine("\nFIND WORD 'I'");
             var foundWords = Regex.Matches(data, @"[.,?!]?\s+I\s+");
             foreach (Match res in foundWords)
             {

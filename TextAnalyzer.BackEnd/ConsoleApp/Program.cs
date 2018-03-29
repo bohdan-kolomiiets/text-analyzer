@@ -18,24 +18,25 @@ namespace ConsoleApp
         {
             string data = File.ReadAllText("Data.txt");
 
-            var splitSentences = new SingleRegExpRule(@"(?<=[.!?])\s+(?=[A-Z])", RuleType.RegExpSplit, "Split sentences");
+            //var splitSentences = new SingleRegExpRule(@"(?<=[.!?])\s+(?=[A-Z])", RuleType.RegExpSplit, "Split sentences");
 
-            var filterQuestions = new SingleRegExpRule(@"[?]$", RuleType.RegExpFilter, "Filter quesions");
+            //var filterQuestions = new SingleRegExpRule(@"[?]$", RuleType.RegExpFilter, "Filter quesions");
 
-            var filterSentencesWithDate = new MultipleRegExpRules(new List<string>
-                {
-                    @"\d{1,2}[/-]\d{1,2}[/-]\d{2,4}",
-                    @"(?:\d{1,2} )?(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* (?:\d{1,2}, )?\d{4}"
-                }, RuleType.RegExpFilter, RulesConnectionType.Union, "Filter dates");
+            //var filterSentencesWithDate = new MultipleRegExpRules(new List<string>
+            //    {
+            //        @"\d{1,2}[/-]\d{1,2}[/-]\d{2,4}",
+            //        @"(?:\d{1,2} )?(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* (?:\d{1,2}, )?\d{4}"
+            //    }, RuleType.RegExpFilter, RulesConnectionType.Union, "Filter dates");
 
-            var initData = new ParserResult(data, null);
-            var result = initData.SplitByRegExp(splitSentences).FilterByRegExp(filterQuestions).FilterByRegExp(filterSentencesWithDate);
+            //var initData = new ParserResult(data, null);
+            //var result = initData.SplitByRegExp(splitSentences).FilterByRegExp(filterQuestions).FilterByRegExp(filterSentencesWithDate);
 
+            Console.WriteLine("INITIAL TEXT:\n{0}", data);
 
             //var freq = SimpleRexExpForTest.CalcFrequencyOfWordI(data);
-            //var sentences = SimpleRexExpForTest.SplitOnSentences(data, true);
-            //var questions = SimpleRexExpForTest.FilterQuestions(sentences, true);
-            //SimpleRexExpForTest.FilterWithDates(questions, true);
+            var sentences = SimpleRexExpForTest.SplitOnSentences(data, true);
+            var questions = SimpleRexExpForTest.FilterQuestions(sentences, true);
+            SimpleRexExpForTest.FilterWithDates(questions, true);
         }
     }
 }
