@@ -14,7 +14,7 @@ namespace Algorithms.Models.Rule
         public RulesConnectionType ConnectionType { get; set; }
 
 
-        public MultipleRegExpRules(IEnumerable<string> regularExpressions, RuleType ruleType, 
+        public MultipleRegExpRules(IEnumerable<string> regularExpressions, RegExpRuleType ruleType, 
             RulesConnectionType connectionType, string title = "")
             : base(ruleType, title)
         {
@@ -22,7 +22,7 @@ namespace Algorithms.Models.Rule
             ConnectionType = connectionType;
         }
 
-        public MultipleRegExpRules(IEnumerable<string> regularExpressions, RuleType ruleType, 
+        public MultipleRegExpRules(IEnumerable<string> regularExpressions, RegExpRuleType ruleType, 
             RulesConnectionType connectionType, int? minMatchesNumber = null, int? maxMatchesNumber = null, string title = "")
             :base(ruleType, title, minMatchesNumber, maxMatchesNumber)
         {

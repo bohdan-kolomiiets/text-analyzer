@@ -65,21 +65,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Interfaces\IParserResult.cs" />
+    <Compile Include="Models\RegExpParserResultEventArgs.cs" />
+    <Compile Include="RegExpParser\Interfaces\IRegExpParserResultPublisher.cs" />
+    <Compile Include="RegExpParser\Interfaces\IRegExpResultVisualizer.cs" />
     <Compile Include="Models\Interfaces\Rule\IRegExpRule.cs" />
     <Compile Include="Models\Interfaces\Rule\IMultipleRegExpRules.cs" />
     <Compile Include="Models\Interfaces\Rule\ISingleRegExpRule.cs" />
-    <Compile Include="Models\Interfaces\ITextParser.cs" />
     <Compile Include="Models\Interfaces\Rule\IRule.cs" />
     <Compile Include="Models\Rule\MultipleRegExpRules.cs" />
-    <Compile Include="Models\ParserResult.cs" />
+    <Compile Include="Models\RegExpParserResult.cs" />
     <Compile Include="Models\Rule\RegExpRule.cs" />
-    <Compile Include="Models\RulesBlock.cs" />
     <Compile Include="Models\ConstantsAndEnums\RulesConnectionType.cs" />
-    <Compile Include="Models\ConstantsAndEnums\RuleType.cs" />
+    <Compile Include="Models\ConstantsAndEnums\RegExpRuleType.cs" />
     <Compile Include="Models\Rule\SingleRegExpRule.cs" />
-    <Compile Include="RegExpParser\RegExFilterExtension.cs" />
-    <Compile Include="RegExpParser\RegExpFinderExtension.cs" />
-    <Compile Include="RegExpParser\RegExpSlitterExtension.cs" />
+    <Compile Include="RegExpParser\Extensions\RegExFilterExtension.cs" />
+    <Compile Include="RegExpParser\Extensions\RegExpFinderExtension.cs" />
+    <Compile Include="RegExpParser\RegExpParserResultPublisher.cs" />
+    <Compile Include="RegExpParser\RegExpResultConsoleVisualizer.cs" />
+    <Compile Include="RegExpParser\Extensions\RegExpSlitterExtension.cs" />
     <Compile Include="RegExpParser\SimpleRexExpForTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

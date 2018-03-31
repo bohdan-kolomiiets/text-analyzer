@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Algorithms.Models.ConstantsAndEnums
 {
-    public enum RuleType
+    public enum RegExpRuleType
     {
         RegExpFind,
         RegExpFilter,

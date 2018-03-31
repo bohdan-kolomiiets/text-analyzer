@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Algorithms.Models.Rule
 {
-    public abstract class RegExpRule: IRegExpRule<RuleType>
+    public abstract class RegExpRule: IRegExpRule<RegExpRuleType>
     {
         public string Title { get; }
 
-        public RuleType RuleType { get; }
+        public RegExpRuleType RuleType { get; }
 
         private int? _minMatchesNumber;
         private int? _maxMatchesNumber;
@@ -29,13 +29,13 @@ namespace Algorithms.Models.Rule
             private set { _maxMatchesNumber = value.HasValue ? value.Value >= 0 ? value : int.MaxValue : null; }
         }
 
-        public RegExpRule(RuleType ruleType, string title = "",
+        public RegExpRule(RegExpRuleType ruleType, string title = "",
             int? minMatchesNumber = null, int? maxMatchesNumber = null)
         {
             RuleType = ruleType;
             Title = title;
 
-            if (ruleType == RuleType.RegExpFilter)
+            if (ruleType == RegExpRuleType.RegExpFilter)
             {
                 if (minMatchesNumber.HasValue && maxMatchesNumber.HasValue)
                 {

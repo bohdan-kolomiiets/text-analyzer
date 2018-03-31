@@ -12,13 +12,13 @@ namespace Algorithms.Models.Rule
     {
         public string RegularExpression { get; }
 
-        public SingleRegExpRule(string regularExpression, RuleType ruleType, string title = "")
+        public SingleRegExpRule(string regularExpression, RegExpRuleType ruleType, string title = "")
             :base(ruleType, title)
         {
             RegularExpression = regularExpression;
         }
 
-        public SingleRegExpRule(string regularExpression, RuleType ruleType, 
+        public SingleRegExpRule(string regularExpression, RegExpRuleType ruleType, 
             int? minMatchesNumber = null, int? maxMatchesNumber = null, string title = "")
             :base(ruleType, title, minMatchesNumber, maxMatchesNumber)
         {

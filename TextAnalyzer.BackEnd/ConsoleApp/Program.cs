@@ -1,6 +1,7 @@
 ﻿using Algorithms;
 using Algorithms.Models;
 using Algorithms.Models.ConstantsAndEnums;
+using Algorithms.Models.Interfaces;
 using Algorithms.Models.Rule;
 using Algorithms.RegExpParser;
 using System;
@@ -12,31 +13,43 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp
 {
+
+
     class Program
     {
         static void Main(string[] args)
         {
             string data = File.ReadAllText("Data.txt");
 
-            //var splitSentences = new SingleRegExpRule(@"(?<=[.!?])\s+(?=[A-Z])", RuleType.RegExpSplit, "Split sentences");
+            //setup rules that will be applied
 
-            //var filterQuestions = new SingleRegExpRule(@"[?]$", RuleType.RegExpFilter, "Filter quesions");
+            var splitSentences = new SingleRegExpRule(@"(?<=[.!?])\s+(?=[A-Z])", RegExpRuleType.RegExpSplit, "Split sentences");
 
-            //var filterSentencesWithDate = new MultipleRegExpRules(new List<string>
-            //    {
-            //        @"\d{1,2}[/-]\d{1,2}[/-]\d{2,4}",
-            //        @"(?:\d{1,2} )?(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* (?:\d{1,2}, )?\d{4}"
-            //    }, RuleType.RegExpFilter, RulesConnectionType.Union, "Filter dates");
+            var filterQuestions = new SingleRegExpRule(@"[?]$", RegExpRuleType.RegExpFilter, "Filter quesions");
 
-            //var initData = new ParserResult(data, null);
-            //var result = initData.SplitByRegExp(splitSentences).FilterByRegExp(filterQuestions).FilterByRegExp(filterSentencesWithDate);
+            var filterSentencesWithDate = new MultipleRegExpRules(new List<string>
+                {
+                    @"\d{1,2}[/-]\d{1,2}[/-]\d{2,4}",
+                    @"(?:\d{1,2} )?(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* (?:\d{1,2}, )?\d{4}"
+                }, RegExpRuleType.RegExpFilter, RulesConnectionType.Union, "Filter dates");
 
-            Console.WriteLine("INITIAL TEXT:\n{0}", data);
+            //setup rules results logging
+            var consoleVisualizer = new RegExpResultConsoleVisualizer();
+            EventHandler<RegExpParserResultEventArgs> textParsed = consoleVisualizer.Visualize;
+            var textParsedPublisher = new RegExpParserResultPublisher(textParsed);
 
+            //apply rules
+            var initData = new RegExpParserResult(data, null);
+            var result = initData.SplitByRegExp(splitSentences, textParsedPublisher)
+                .FilterByRegExp(filterQuestions, textParsedPublisher)
+                .FilterByRegExp(filterSentencesWithDate, textParsedPublisher);
+
+
+            //Console.WriteLine("INITIAL TEXT:\n{0}", data);
             //var freq = SimpleRexExpForTest.CalcFrequencyOfWordI(data);
-            var sentences = SimpleRexExpForTest.SplitOnSentences(data, true);
-            var questions = SimpleRexExpForTest.FilterQuestions(sentences, true);
-            SimpleRexExpForTest.FilterWithDates(questions, true);
+            //var sentences = SimpleRexExpForTest.SplitOnSentences(data, true);
+            //var questions = SimpleRexExpForTest.FilterQuestions(sentences, true);
+            //SimpleRexExpForTest.FilterWithDates(questions, true);
         }
     }
 }

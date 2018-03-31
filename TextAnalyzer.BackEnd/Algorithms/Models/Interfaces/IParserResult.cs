@@ -9,8 +9,9 @@ namespace Algorithms.Models.Interfaces
 {
     public interface IParserResult<T> where T: struct
     {
+        string RuleTitle { get; }
         IParserResult<T> ParentParserReult { get; }
-        string SourseText { get; }
+        string SourceText { get; }
         IEnumerable<KeyValuePair<int, string>> Entries { get; }
     }
 }
